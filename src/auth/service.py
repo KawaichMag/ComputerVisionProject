@@ -1,5 +1,6 @@
-from fastapi import Depends, HTTPException
+from fastapi import HTTPException
 from fastapi.security import OAuth2PasswordBearer
+from sqlalchemy.ext.asyncio import AsyncSession
 from src.core.config import settings
 from jose import jwt, JWTError
 from src.auth.utils import verify_password, create_access_token
@@ -14,8 +15,8 @@ from src.auth.utils import get_password_hash
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/login")
 
 class AuthService:
-    def __init__(self, user_service: UserService):
-        self.user_service = user_service
+    def __init__(self, db:AsyncSession):
+        self.user_service = UserService(db=db)
 
     async def authenticate_user(self, login_data: LoginRequest) -> TokenResponse:
         user = await self.user_service.get_user_by_email(login_data.email)
@@ -28,16 +29,13 @@ class AuthService:
         )
         return TokenResponse(access_token=access_token)
 
-    async def get_current_user(self, token: str) -> Optional[UserInDB]:
+    async def get_current_user(self, token: str) -> UserInDB:
         try:
-            print("++"*100)
             payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
             user_id = payload.get("sub")
             if user_id is None:
-                print("++"*100)
                 raise HTTPException(status_code=401, detail="Invalid authentication credentials")
         except JWTError:
-            print("++"*100)
             raise HTTPException(status_code=401, detail="Invalid token")
 
         user = await self.user_service.get(int(user_id))

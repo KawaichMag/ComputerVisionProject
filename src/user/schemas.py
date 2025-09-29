@@ -41,6 +41,27 @@ class UserInDB(UserBase):
         }
 
 
+class UserOut(UserBase):
+    id: int
+    is_active: bool
+    last_login: Optional[datetime]
+    created_at: datetime
+    updated_at: datetime
+
+    class Config:
+        from_attributes = True
+        json_schema_extra = {
+            "example": {
+                "email": "user@example.com",
+                "full_name": "John Doe",
+                "id": 1,
+                "is_active": True,
+                "created_at": "2023-01-01T00:00:00",
+                "updated_at": "2023-01-01T00:00:00"
+            }
+        }
+
+
 class UserLogin(BaseModel):
     email: EmailStr
     password: str

@@ -44,6 +44,11 @@ class CardRepository:
         await self.db.refresh(db_card)
         return db_card
 
+    async def get_all_cards(self) -> List[Card]:
+        """Получение всех карточек без фильтрации по пользователю"""
+        result = await self.db.execute(select(Card))
+        return list(result.scalars().all())
+
     async def get_user_cards(self, user_id: int) -> List[Card]:
         result = await self.db.execute(select(Card).where(Card.user_id == user_id))
         return list(result.scalars().all())
