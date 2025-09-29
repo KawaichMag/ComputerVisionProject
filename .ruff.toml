@@ -1,0 +1,24 @@
+# Configuration for Ruff linter (https://beta.ruff.rs/docs/configuration/)
+line-length = 120
+select = [
+  "E",   # pycodestyle errors
+  "F",   # pyflakes
+  "W",   # pycodestyle warnings
+  "UP",  # pyupgrade
+  "I",   # isort
+]
+ignore = [
+  "E203", # Whitespace before ':' (conflicts with Black)
+  "E501", # Line too long (handled by Black)
+  "W505"  # doc-line-too-long (handled by Black)
+]
+target-version = "py311"
+exclude = [
+  ".git",
+  ".mypy_cache",
+  ".venv",
+  "__pycache__",
+  "build",
+  "dist",
+  "mlruns"
+]
