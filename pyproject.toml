@@ -1,0 +1,64 @@
+[tool.poetry]
+name = "cv-project"
+version = "0.1.0"
+description = ""
+authors = ["gshjis <ilya.togan@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+fastapi = "^0.118.0"
+alembic = "^1.16.5"
+sqlalchemy = "^2.0.43"
+pydantic-settings = "^2.11.0"
+pillow = "^11.3.0"
+pyjwt = "^2.10.1"
+passlib = "^1.7.4"
+python-jose = {extras = ["cryptography"], version = "^3.5.0"}
+asyncpg = "^0.30.0"
+psycopg2-binary = "^2.9.10"
+pydantic = {extras = ["email"], version = "^2.11.9"}
+python-multipart = "^0.0.20"
+uvicorn = "^0.37.0"
+bcrypt = "^5.0.0"
+argon2-cffi = "^25.1.0"
+
+
+[tool.poetry.group.dev.dependencies]
+types-python-jose = "^3.5.0.20250531"
+types-passlib = "^1.7.7.20250602"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.black]
+line-length = 120
+target-version = ["py311"]
+skip-string-normalization = true
+extend-exclude = '''
+/(
+    \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+  | mlruns
+)/
+'''
+
+[tool.isort]
+line_length = 120
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+ensure_newline_before_comments = true
+known_third_party = ["mlflow", "zenml", "sklearn", "pandas", "numpy"]
+known_first_party = ["src", "pipelines", "steps"]
+default_section = "THIRDPARTY"

@@ -1,0 +1,16 @@
+[flake8]
+max-line-length = 120
+extend-ignore =
+    E203,  # Whitespace before ':' (conflicts with Black)
+    E501,  # Line too long (handled by Black)
+    W503   # Line break before binary operator (PEP8 now allows this)
+exclude =
+    .git,
+    .mypy_cache,
+    .venv,
+    __pycache__,
+    build,
+    dist,
+    mlruns
+per-file-ignores =
+    __init__.py: F401  # Unused imports allowed in __init__.py
