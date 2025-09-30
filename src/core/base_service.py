@@ -62,7 +62,7 @@ class BaseService(ABC, Generic[T, CreateSchema]):
         pass
 
     @abstractmethod
-    async def get_all(self) -> List[T]:
+    async def _get_all(self) -> List[T]:
         """
         Получает все сущности.
         

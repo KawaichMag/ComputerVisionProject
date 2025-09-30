@@ -1,8 +1,10 @@
+import uvicorn
 from fastapi import FastAPI
 from src.core.db_session import create_db_and_tables
 from src.auth.router import router as auth_router
 from src.user.handlers import router as user_router
 from src.cards.handlers import router as cards_router
+from src.core.config import settings
 
 app = FastAPI(
     title="CV Project API",
@@ -19,3 +21,12 @@ app.include_router(cards_router, prefix="/api")
 async def on_startup():
     """Инициализация при старте приложения"""
     await create_db_and_tables()
+
+if __name__ == "__main__":
+    uvicorn.run(
+        "src.core.main:app",
+        host=settings.APP_HOST,
+        port=settings.APP_PORT,
+        reload=settings.APP_RELOAD,
+        workers=settings.APP_WORKERS
+    )

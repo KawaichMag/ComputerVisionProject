@@ -18,7 +18,7 @@ class UserService(BaseService[UserInDB, UserCreate]):
         user = await self.repository.get_user(id)
         return UserInDB.model_validate(user) if user else None
 
-    async def get_all(self) -> List[UserInDB]:
+    async def _get_all(self) -> List[UserInDB]:
         users = await self.repository.get_all_users()
         return [UserInDB.model_validate(user) for user in users]
 

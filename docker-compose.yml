@@ -17,6 +17,28 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+    networks:
+      - cv_network
+
+  backend:
+    build: .
+    container_name: cv_project_backend
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./photos:/app/photos
+      - ./.env:/app/.env
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - cv_network
 
 volumes:
   postgres_data:
+
+networks:
+  cv_network:
+    driver: bridge

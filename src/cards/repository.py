@@ -87,7 +87,7 @@ class CardRepository:
         await self.db.refresh(db_card)
         return db_card
 
-    async def get_all_cards(self) -> List[Card]:
+    async def _get_all_cards(self) -> List[Card]:
         """
         Получает все карточки без фильтрации по пользователю
         

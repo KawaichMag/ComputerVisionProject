@@ -8,6 +8,16 @@ class Settings(BaseSettings):
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
     PHOTO_FOLDER_FULL_NAME: str = "~/Python_projects/cv_project/photos"
     
+    # Настройки сервера
+    APP_HOST: str = "0.0.0.0"
+    APP_PORT: int = 8000
+    APP_RELOAD: bool = False
+    APP_WORKERS: int = 4
+    
+    # Настройки окружения
+    ENVIRONMENT: str = "production"
+    DEBUG: bool = False
+    
     class Config:
         env_file = ".env"
         extra = "ignore"

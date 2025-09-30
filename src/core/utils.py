@@ -1,6 +1,8 @@
 from datetime import datetime
 import hashlib
 import os
+import zipfile
+import io
 from fastapi import UploadFile, HTTPException
 from src.core.config import settings
 
@@ -55,8 +57,7 @@ def save_photo(photo_file: UploadFile, photo_name: str) -> str:
         
         with open(file_path, "wb") as buffer:
             buffer.write(photo_file.file.read())
-            
-        return photo_dir
+        return f"{photo_dir}/{photo_name}"
         
     except OSError as e:
         raise HTTPException(
@@ -68,3 +69,50 @@ def save_photo(photo_file: UploadFile, photo_name: str) -> str:
             status_code=500,
             detail=f"Unexpected error: {str(e)}"
         )
+
+
+def get_photo_file(photo_path: str):
+    """
+    Проверяет существование файла фотографии по указанному пути.
+    
+    Args:
+        photo_path: Полный путь к файлу фотографии
+        
+    Returns:
+        file object if exists, None otherwise
+    """
+    if not os.path.exists(photo_path):
+        return None
+    
+    return open(photo_path, 'rb')
+
+
+def create_zip_archive(files: list) -> io.BytesIO:
+    """
+    Создает ZIP архив из списка файловых объектов.
+    
+    Args:
+        files: Список файловых объектов (открытых в бинарном режиме)
+        
+    Returns:
+        BytesIO объект с ZIP архивом
+    """
+    zip_buffer = io.BytesIO()
+    
+    with zipfile.ZipFile(zip_buffer, 'w', zipfile.ZIP_DEFLATED) as zip_file:
+        for file_obj in files:
+            try:
+                # Получаем имя файла из пути
+                filename = os.path.basename(file_obj.name)
+                # Читаем содержимое файла
+                content = file_obj.read()
+                # Добавляем файл в архив
+                zip_file.writestr(filename, content)
+                # Закрываем файл
+                file_obj.close()
+            except Exception as e:
+                # Пропускаем файлы с ошибками
+                continue
+    
+    zip_buffer.seek(0)
+    return zip_buffer

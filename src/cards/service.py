@@ -1,4 +1,5 @@
 from typing import Optional, List
+import io
 from fastapi import UploadFile
 from src.core.utils import photo_hashed_name
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -7,7 +8,7 @@ from src.user.schemas import UserInDB
 from .repository import CardRepository
 from .schemas import CardCreate, CardInDB, CardBase
 from .model import Card
-from src.core.utils import save_photo
+from src.core.utils import save_photo, get_photo_file, create_zip_archive
 
 
 
@@ -32,17 +33,36 @@ class CardService(BaseService[CardInDB, CardCreate]):
         return await self.create(card_data_in_db)
 
     async def get(self, id: int) -> Optional[CardInDB]:
-        """Получение карточки по ID"""
+        """Получение записи карточек по ID"""
         card = await self.repository.get_card(id)
-        return CardInDB.model_validate(card) if card else None
+        return CardInDB.model_validate(card)
+    
+    async def get_photo_files_zip(self, user_id: int) -> Optional[io.BytesIO]:
+        """Получение ZIP архива с фотографиями для карточек пользователя"""
+        cards = await self.get_user_cards(user_id)
+        if not cards:
+            return None
+        
+        photo_files = []
+        for card in cards:
+            file_obj = get_photo_file(card.photo_path)
+            if file_obj:
+                photo_files.append(file_obj)
+        
+        if not photo_files:
+            return None
+        
+        # Создаем ZIP архив
+        zip_buffer = create_zip_archive(photo_files)
+        return zip_buffer
 
     async def delete(self, id: int) -> bool:
         """Удаление карточки"""
         return await self.repository.delete_card(id)
 
-    async def get_all(self) -> List[CardInDB]:
+    async def _get_all(self) -> List[CardInDB]:
         """Получение всех карточек"""
-        cards = await self.repository.get_all_cards()
+        cards = await self.repository._get_all_cards()
         return [CardInDB.model_validate(card) for card in cards]
 
     async def get_user_cards(self, user_id: int) -> List[CardInDB]:

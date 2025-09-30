@@ -42,6 +42,21 @@
 - **Ответ:** CardInDB
 - **Код ответа:** 200
 
+#### GET /{card_id}
+- **Метод:** GET
+- **Аутентификация:** Требуется
+- **Параметры пути:** card_id (int)
+- **Ответ:** CardInDB с фото и описанием
+- **Код ответа:** 200 при успехе, 404 если не найдено
+
+#### GET /user/photos/zip
+- **Метод:** GET
+- **Аутентификация:** Требуется
+- **Ответ:** ZIP архив со всеми фотографиями пользователя
+- **Content-Type:** application/zip
+- **Content-Disposition:** attachment; filename=user_photos.zip
+- **Код ответа:** 200 при успехе, 404 если фотографии не найдены
+
 ## Конфигурация
 
 Из `src/core/config.py`:
@@ -77,4 +92,40 @@ curl -X POST "http://localhost:8000/api/cards" \
 ```bash
 curl -X GET "http://localhost:8000/api/users/me" \
   -H "Authorization: Bearer {token}"
+
+### Примеры новых запросов
+```bash
+# Получение карточки по ID
+curl -X GET "http://localhost:8000/api/cards/1" \
+  -H "Authorization: Bearer {token}"
+
+# Скачивание ZIP архива с фотографиями
+curl -X GET "http://localhost:8000/api/cards/user/photos/zip" \
+  -H "Authorization: Bearer {token}" \
+  -o user_photos.zip
+```
+
+## Управление через Makefile
+
+### Основные команды
+```bash
+# Запуск контейнеров
+make up           # Запуск в фоне
+make dev          # Запуск в интерактивном режиме
+make down         # Остановка контейнеров
+make rebuild      # Пересборка и запуск
+
+# Логи
+make logs         # Логи бэкенда
+make logs-db      # Логи базы данных
+
+# Миграции базы данных
+make migrate              # Применить все миграции
+make migrate-revision     # Создать новую миграцию (message="описание")
+make migrate-downgrade   # Откатить последнюю миграцию
+make migrate-history     # История миграций
+
+# Очистка
+make clean        # Остановка и удаление контейнеров и volumes
+make setup-env    # Создание .env файла из примера
 ```
