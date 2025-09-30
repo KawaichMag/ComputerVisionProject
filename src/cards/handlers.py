@@ -1,23 +1,22 @@
-from fastapi import APIRouter, Depends, HTTPException, UploadFile, File
+from fastapi import APIRouter, Depends, UploadFile, File
 from src.core.service_factory import ServiceFactory
 from .service import CardService
 from .schemas import CardBase, CardInDB
 from src.user.schemas import UserInDB
 from src.auth.dependencies import get_current_user
+from fastapi import Form
 
 router = APIRouter(prefix="/cards", tags=["cards"])
 
 # Создаем dependency для CardService
-
-from fastapi import Form
 
 @router.post("/", response_model=CardInDB)
 async def create_card(
     title: str = Form(...),
     description: str = Form(...),
     price: float = Form(...),
-    user: UserInDB = Depends(get_current_user),
     file: UploadFile = File(...),
+    user: UserInDB = Depends(get_current_user),
     service: CardService = Depends(ServiceFactory.get_dependency(CardService))
 ):
     """Создание новой карточки с использованием multipart/form-data"""

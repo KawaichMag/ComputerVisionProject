@@ -8,25 +8,65 @@ CreateSchema = TypeVar('CreateSchema', bound=BaseModel)
 
 
 class BaseService(ABC, Generic[T, CreateSchema]):
+    """
+    Абстрактный базовый класс для всех сервисов приложения.
+    
+    Определяет базовый набор операций CRUD для сущностей.
+    """
     def __init__(self, db: AsyncSession):
+        """
+        Инициализация сервиса
+        
+        Args:
+            db: Асинхронная сессия SQLAlchemy
+        """
         self.db = db
 
     @abstractmethod
     async def create(self, data: CreateSchema) -> T:
-        """Создание сущности"""
+        """
+        Создает новую сущность.
+        
+        Args:
+            data: Данные для создания сущности
+            
+        Returns:
+            Созданная сущность
+        """
         pass
 
     @abstractmethod
     async def get(self, id: int) -> Optional[T]:
-        """Получение сущности по ID"""
-        pass    
+        """
+        Получает сущность по идентификатору.
+        
+        Args:
+            id: Идентификатор сущности
+            
+        Returns:
+            Сущность или None, если сущность не найдена
+        """
+        pass
 
     @abstractmethod
     async def delete(self, id: int) -> bool:
-        """Удаление сущности"""
+        """
+        Удаляет сущность по идентификатору.
+        
+        Args:
+            id: Идентификатор сущности
+            
+        Returns:
+            True если сущность удалена, False если сущность не найдена
+        """
         pass
 
     @abstractmethod
     async def get_all(self) -> List[T]:
-        """Получение всех сущностей"""
+        """
+        Получает все сущности.
+        
+        Returns:
+            Список всех сущностей
+        """
         pass
