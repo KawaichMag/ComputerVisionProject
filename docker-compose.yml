@@ -21,7 +21,7 @@ services:
       - cv_network
 
   backend:
-    build: .
+    build: ./backend
     container_name: cv_project_backend
     env_file:
       - .env
