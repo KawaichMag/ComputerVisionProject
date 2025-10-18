@@ -8,7 +8,6 @@ from src.core.base_model import BaseModel
 
 class Card(BaseModel):
     __tablename__ = "cards"
-
     title: Mapped[str] = mapped_column(String(100))
     description: Mapped[Optional[str]] = mapped_column(String(500), nullable=True)
     photo_path: Mapped[str] = mapped_column(String(255))
