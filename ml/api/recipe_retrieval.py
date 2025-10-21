@@ -7,7 +7,6 @@ from dotenv import load_dotenv
 load_dotenv()  
 app = FastAPI()
 
-
 SPOONACULAR_API_KEY = os.getenv("SPOONACULAR_API_KEY") 
 BASE_URL = "https://api.spoonacular.com/recipes"
 

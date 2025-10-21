@@ -13,7 +13,7 @@ from transformers import SegformerForSemanticSegmentation
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-MODEL_PATH = os.path.join(BASE_DIR, "..", "models", "segmentation_model")
+MODEL_PATH = os.path.join(BASE_DIR, "..", "models", "segmentation_b0")
 CONFIG_PATH = os.path.join(MODEL_PATH, "config.json")
 
 with open(CONFIG_PATH, "r", encoding="utf-8") as f:

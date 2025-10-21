@@ -10,6 +10,7 @@ dependencies = [
     "pillow>=12.0.0",
     "pydantic>=2.12.3",
     "python-dotenv>=1.1.1",
+    "python-multipart>=0.0.20",
     "torch>=2.9.0",
     "torchvision>=0.24.0",
     "transformers>=4.57.1",
