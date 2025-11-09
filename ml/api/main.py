@@ -5,8 +5,12 @@ from .app_state import init_models
 from PIL import Image
 import io
 import logging
+from .recipe_retrieval import router 
+
 
 app = FastAPI()
+
+app.include_router(router)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -46,7 +50,7 @@ async def predict_image(file: UploadFile = File(...)):
     logger.info(f"Список продуктов: {products_list}")
     logger.info(f"Сырой ответ модели: {products_text}")
         
-    return JSONResponse(content={"predictions": products_list})
+    return {"predictions": products_list}
 
 
 @app.get("/health")

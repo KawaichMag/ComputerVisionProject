@@ -4,7 +4,9 @@ version = "0.1.0"
 requires-python = ">=3.11"
 dependencies = [
     "accelerate>=1.11.0",
+    "dotenv>=0.9.9",
     "fastapi>=0.121.0",
+    "httpx>=0.28.1",
     "logging>=0.4.9.6",
     "pillow>=12.0.0",
     "python-multipart>=0.0.20",

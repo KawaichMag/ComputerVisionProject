@@ -1,11 +1,12 @@
-from fastapi import FastAPI, Query, HTTPException
+from fastapi import  APIRouter, Query, HTTPException
 from pydantic import BaseModel
 import httpx
 import os
 from dotenv import load_dotenv
 
 load_dotenv()  
-app = FastAPI()
+
+router = APIRouter()
 
 SPOONACULAR_API_KEY = os.getenv("SPOONACULAR_API_KEY") 
 BASE_URL = "https://api.spoonacular.com/recipes"
@@ -55,7 +56,7 @@ class IngredientsRequest(BaseModel):
         
 '''
 
-@app.post("/recipes")
+@router.post("/recipes")
 async def get_recipes(data: IngredientsRequest, number: int = Query(3, ge=1, le=20)):
     params = {
         "ingredients": ",".join(data.ingredients),
