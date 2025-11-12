@@ -1,0 +1,80 @@
+.homepage {
+    width: 95%;
+    height: 100%;
+    justify-self: center;
+}
+
+.content {
+    height: 100%;
+    display: grid;
+    grid-template-rows: 500px auto 1fr;
+    gap: 2rem;
+}
+
+.top-section {
+    display: grid;
+    grid-template-columns: 500px 1fr;
+    gap: 2rem;
+
+    > div {
+        background-color: gainsboro;
+    }
+}
+
+.logo-desc {
+    > h2 {
+        margin-top: 1rem;
+        text-align: center;
+    }
+}
+
+.short-history {
+    > h2 {
+        margin-top: 1rem;
+        text-align: center;
+    }
+
+    .short-history-list {
+        height: 80%;
+        display: grid;
+        gap: 1rem;
+        padding: 1rem;
+        grid-template-rows: repeat(auto-fit, 1fr);
+
+        > * {
+            background-color: gray;
+            padding: 1rem;
+        }
+    }
+}
+
+.recipes-examples {
+    display: flex;
+    justify-content: space-around;
+    
+    > p {
+        background-color: gainsboro;
+        width: 200px;
+        height: 200px;
+    }
+}
+
+.changelog {
+    background-color: gainsboro;
+
+    > h3 {
+        margin-top: 1rem;
+        text-align: center;
+    }
+}
+
+.changelog-list {
+    display: grid;
+    gap: 1rem;
+    padding: 1rem;
+
+    > * {
+        background-color: gray;
+        padding: 1rem;
+    }
+}
