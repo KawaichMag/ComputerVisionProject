@@ -5,7 +5,7 @@ WORKDIR /src
 
 COPY pyproject.toml uv.lock ./
 
-RUN uv sync --compile-bytecode
+RUN uv sync --compile-bytecode --extra cpu
 
 COPY . .
 

@@ -1,6 +1,8 @@
 from transformers import AutoModelForCausalLM
 import torch
 
+torch.cuda.is_available()
+
 def init_models(app):
     model_id = "vikhyatk/moondream2"
     revision = "2025-06-21"

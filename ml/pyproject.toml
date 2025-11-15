@@ -6,11 +6,49 @@ dependencies = [
     "accelerate>=1.11.0",
     "dotenv>=0.9.9",
     "fastapi>=0.121.0",
+    "hf-xet>=1.2.0",
     "httpx>=0.28.1",
     "logging>=0.4.9.6",
     "pillow>=12.0.0",
     "python-multipart>=0.0.20",
-    "torch>=2.9.0",
     "transformers>=4.57.1",
     "uvicorn>=0.38.0",
 ]
+
+[project.optional-dependencies]
+cpu = [
+  "torch>=2.7.0",
+  "torchvision>=0.22.0",
+]
+cu118 = [
+  "torch>=2.7.0",
+  "torchvision>=0.22.0",
+]
+
+[tool.uv]
+conflicts = [
+  [
+    { extra = "cpu" },
+    { extra = "cu118" },
+  ],
+]
+
+[tool.uv.sources]
+torch = [
+  { index = "pytorch-cpu", extra = "cpu" },
+  { index = "pytorch-cu118", extra = "cu118" },
+]
+torchvision = [
+  { index = "pytorch-cpu", extra = "cpu" },
+  { index = "pytorch-cu118", extra = "cu118" },
+]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[[tool.uv.index]]
+name = "pytorch-cu118"
+url = "https://download.pytorch.org/whl/cu118"
+explicit = true
