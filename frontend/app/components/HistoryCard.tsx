@@ -1,30 +1,47 @@
 import { Card, type CardProps } from '@mui/material'
 import React from 'react'
+import './HistoryCard.css'
+import { NavLink } from 'react-router'
+import ProductCard from './ProductCard'
 
 interface CardsCollageProps {
-    images: string[]
+    images: string[],
 }
 
 function CardsCollage( { images } : CardsCollageProps ) {
     return (
-        <div className='cards-collage'
-            style={{
-                display: 'flex',
-            }}
-            >
-            {images.map((item) => {
-                return <img src={item}/>
+        <div className='cards-collage'>
+            {images.map((item, index) => {
+                return <img key={index} src={item}/>
             })}
         </div>
     )
 }
 
-type HistoryCardProps = CardProps & CardsCollageProps;
+type HistoryCardProps = CardsCollageProps & {
+  food: {
+      name: string,
+      weight: number,
+      cal: number,
+    }[],
+  link: string
+};
 
 export default function HistoryCard( props : HistoryCardProps) {
   return (
-    <Card>
+    <div className='history-card'>
       <CardsCollage images={props.images}/>
-    </Card>
+      <div className="product-cards">
+        {props.food.map( (item, index) => {
+          return (
+            <ProductCard name={item.name} weight={item.weight} cal={item.cal} />
+          )
+        })}
+      </div>
+      
+      <NavLink to={props.link}>
+        Move to
+      </NavLink>
+    </div>
   )
 }

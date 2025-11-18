@@ -1,0 +1,32 @@
+.prod-card {
+    display: grid;
+    height: minmax(fit-content, 5rem);
+    height: minmax(fit-content, 5rem);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background-color: aliceblue;
+    gap: 0.25rem;
+    grid-template-rows: 1fr 2fr 1fr;
+    
+    > * {
+        color: var(--text-200);
+    }
+
+    .prod-cal {
+        font-size: 1.75rem;
+        font-weight: 600;
+
+        > .prod-unit {
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+    }
+
+    .prod-weight {
+        font-size: 0.95rem;
+    }
+
+    .prod-name {
+        font-size: 0.85rem;
+    }
+}

@@ -1,9 +1,164 @@
-body {
-  height: 100vh;
-  margin: 0;
-  font-family: "Roboto", sans-serif;
+@import url('https://fonts.googleapis.com/css?family=Playwrite%20NG%20Modern:700|BIZ%20UDPGothic:400');
+
+:root[data-theme="light"] {
+  --text-50: hsl(30, 23%, 95%);
+  --text-100: hsl(22, 22%, 90%);
+  --text-200: hsl(22, 22%, 80%);
+  --text-300: hsl(22, 22%, 70%);
+  --text-400: hsl(22, 22%, 60%);
+  --text-500: hsl(22, 22%, 50%);
+  --text-600: hsl(22, 22%, 40%);
+  --text-700: hsl(22, 22%, 30%);
+  --text-800: hsl(22, 22%, 20%);
+  --text-900: hsl(22, 22%, 10%);
+  --text-950: hsl(20, 23%, 5%);
+
+  --background-50: hsl(30, 31%, 95%);
+  --background-100: hsl(25, 33%, 90%);
+  --background-200: hsl(25, 33%, 80%);
+  --background-300: hsl(25, 33%, 70%);
+  --background-400: hsl(25, 33%, 60%);
+  --background-500: hsl(25, 33%, 50%);
+  --background-600: hsl(25, 33%, 40%);
+  --background-700: hsl(25, 33%, 30%);
+  --background-800: hsl(25, 33%, 20%);
+  --background-900: hsl(25, 33%, 10%);
+  --background-950: hsl(23, 31%, 5%);
+
+  --primary-50: hsl(25, 100%, 95%);
+  --primary-100: hsl(24, 100%, 90%);
+  --primary-200: hsl(24, 100%, 80%);
+  --primary-300: hsl(24, 100%, 70%);
+  --primary-400: hsl(24, 100%, 60%);
+  --primary-500: hsl(24, 100%, 50%);
+  --primary-600: hsl(24, 100%, 40%);
+  --primary-700: hsl(24, 100%, 30%);
+  --primary-800: hsl(24, 100%, 20%);
+  --primary-900: hsl(24, 100%, 10%);
+  --primary-950: hsl(23, 100%, 5%);
+
+  --secondary-50: hsl(26, 62%, 95%);
+  --secondary-100: hsl(23, 61%, 90%);
+  --secondary-200: hsl(24, 61%, 80%);
+  --secondary-300: hsl(24, 61%, 70%);
+  --secondary-400: hsl(24, 61%, 60%);
+  --secondary-500: hsl(24, 61%, 50%);
+  --secondary-600: hsl(24, 61%, 40%);
+  --secondary-700: hsl(24, 61%, 30%);
+  --secondary-800: hsl(24, 61%, 20%);
+  --secondary-900: hsl(23, 61%, 10%);
+  --secondary-950: hsl(23, 62%, 5%);
+
+  --accent-50: hsl(22, 76%, 95%);
+  --accent-100: hsl(24, 73%, 90%);
+  --accent-200: hsl(24, 73%, 80%);
+  --accent-300: hsl(24, 73%, 70%);
+  --accent-400: hsl(24, 73%, 60%);
+  --accent-500: hsl(24, 73%, 50%);
+  --accent-600: hsl(24, 73%, 40%);
+  --accent-700: hsl(24, 73%, 30%);
+  --accent-800: hsl(24, 73%, 20%);
+  --accent-900: hsl(24, 73%, 10%);
+  --accent-950: hsl(25, 76%, 5%);
+
+}
+:root[data-theme="dark"] {
+  --text-50: hsl(20, 23%, 5%);
+  --text-100: hsl(22, 22%, 10%);
+  --text-200: hsl(22, 22%, 20%);
+  --text-300: hsl(22, 22%, 30%);
+  --text-400: hsl(22, 22%, 40%);
+  --text-500: hsl(22, 22%, 50%);
+  --text-600: hsl(22, 22%, 60%);
+  --text-700: hsl(22, 22%, 70%);
+  --text-800: hsl(22, 22%, 80%);
+  --text-900: hsl(22, 22%, 90%);
+  --text-950: hsl(30, 23%, 95%);
+
+  --background-50: hsl(23, 31%, 5%);
+  --background-100: hsl(25, 33%, 10%);
+  --background-200: hsl(25, 33%, 20%);
+  --background-300: hsl(25, 33%, 30%);
+  --background-400: hsl(25, 33%, 40%);
+  --background-500: hsl(25, 33%, 50%);
+  --background-600: hsl(25, 33%, 60%);
+  --background-700: hsl(25, 33%, 70%);
+  --background-800: hsl(25, 33%, 80%);
+  --background-900: hsl(25, 33%, 90%);
+  --background-950: hsl(30, 31%, 95%);
+
+  --primary-50: hsl(23, 100%, 5%);
+  --primary-100: hsl(24, 100%, 10%);
+  --primary-200: hsl(24, 100%, 20%);
+  --primary-300: hsl(24, 100%, 30%);
+  --primary-400: hsl(24, 100%, 40%);
+  --primary-500: hsl(24, 100%, 50%);
+  --primary-600: hsl(24, 100%, 60%);
+  --primary-700: hsl(24, 100%, 70%);
+  --primary-800: hsl(24, 100%, 80%);
+  --primary-900: hsl(24, 100%, 90%);
+  --primary-950: hsl(25, 100%, 95%);
+
+  --secondary-50: hsl(23, 62%, 5%);
+  --secondary-100: hsl(23, 61%, 10%);
+  --secondary-200: hsl(24, 61%, 20%);
+  --secondary-300: hsl(24, 61%, 30%);
+  --secondary-400: hsl(24, 61%, 40%);
+  --secondary-500: hsl(24, 61%, 50%);
+  --secondary-600: hsl(24, 61%, 60%);
+  --secondary-700: hsl(24, 61%, 70%);
+  --secondary-800: hsl(24, 61%, 80%);
+  --secondary-900: hsl(23, 61%, 90%);
+  --secondary-950: hsl(26, 62%, 95%);
+
+  --accent-50: hsl(25, 76%, 5%);
+  --accent-100: hsl(24, 73%, 10%);
+  --accent-200: hsl(24, 73%, 20%);
+  --accent-300: hsl(24, 73%, 30%);
+  --accent-400: hsl(24, 73%, 40%);
+  --accent-500: hsl(24, 73%, 50%);
+  --accent-600: hsl(24, 73%, 60%);
+  --accent-700: hsl(24, 73%, 70%);
+  --accent-800: hsl(24, 73%, 80%);
+  --accent-900: hsl(24, 73%, 90%);
+  --accent-950: hsl(22, 76%, 95%);
+
 }
 
-h1, h2, h3, h4, p {
-  margin: 0
+:root {
+  --s-shadow: inset 0px 1px 2px hsl(0, 0%, 95%),
+  0px 2px 4px hsl(22, 100%, 31%),
+  0px 4px 6px hsl(23, 100%, 27%);
 }
+
+body {
+  background-color: var(--background-900);
+
+  font-family: 'BIZ UDPGothic';
+  font-weight: 400;
+  height: 100vh;
+  margin: 0;
+  
+  color: var(--text-300);
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: 'Playwrite NG Modern';
+  font-weight: 700;
+  margin: 0;
+  color: var(--text-300);
+}
+
+html {font-size: 100%;} /* 16px */
+
+h1 {font-size: 4.210rem; /* 67.36px */}
+
+h2 {font-size: 3.158rem; /* 50.56px */}
+
+h3 {font-size: 2.369rem; /* 37.92px */}
+
+h4 {font-size: 1.777rem; /* 28.48px */}
+
+h5 {font-size: 1.333rem; /* 21.28px */}
+
+small {font-size: 0.750rem; /* 12px */}

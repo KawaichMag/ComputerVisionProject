@@ -1,0 +1,41 @@
+.layout {
+    justify-self: center;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    justify-content: center;
+    width: 600px;
+    padding: 1em;
+    margin: 1em;
+    border: 2px solid var(--text-500);
+    border-radius: 1em;
+    background-color: var(--secondary-700);
+}
+
+.navigation {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 1em;
+
+    > a {
+        color: var(--text-300);
+        border: 1px solid var(--text-500);
+        padding: 0.5em;
+        border-radius: 0.5em;
+        background-color: var(--primary-800);
+        text-decoration: none;
+        font-size: large;
+
+        &:hover {
+            scale: 1.05;
+            background-color: var(--primary-900);
+            box-shadow: var(--s-shadow);
+            border-bottom: 0;
+            border-top: 0;
+            transition: 0.5s;
+        }
+    }
+}
+
+.page-content {
+    height: 100%;
+}

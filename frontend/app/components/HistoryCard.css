@@ -1,0 +1,76 @@
+.history-card {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 2em;
+    border-radius: 5px;
+
+    a {
+        color: var(--text-200);
+        margin-left: auto;
+        text-decoration: none;
+        background-color: var(--primary-700);
+        padding: 1em;
+        border-radius: 1em;
+        border: 1px solid var(--text-600);
+        font-weight: 600;
+        width: max-content;
+
+        &:hover {
+            scale: 1.05;
+            box-shadow: var(--s-shadow);
+            transition: 0.4s;
+        }
+    }
+}
+
+.food-card {
+    display: grid;
+    padding: 0.5em;
+    border-radius: 10px;
+    justify-items: center;
+}
+
+.cards-collage {
+    width: fit-content;
+    display: grid;
+    grid-template-columns: 20px 20px 20px;
+
+    transform: translate(0px, 5px);
+
+    margin-right: 2em;
+
+    img {
+        width: 70px;
+        height: 70px;
+
+        object-fit: cover;
+
+        border-radius: 10px;
+        border: 1px solid var(--text-400);
+
+        &:nth-child(2) {
+            transform: translate(0px, -5px);
+        }
+
+        &:nth-child(3) {
+            transform: translate(0px, -10px);
+        }
+
+        &:hover {
+            transition: 0.25s;
+            scale: 1.1;
+            transform: translate(0px, -15px);
+            z-index: 1;
+        }
+    }
+
+}
+
+.product-cards {
+    position: relative;
+    display: flex;
+    overflow-x: scroll;
+    scrollbar-width: none;
+    gap: 2em;
+}

@@ -7,7 +7,7 @@
 .content {
     height: 100%;
     display: grid;
-    grid-template-rows: 500px auto 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
     gap: 2rem;
 }
 
@@ -16,8 +16,29 @@
     grid-template-columns: 500px 1fr;
     gap: 2rem;
 
-    > div {
-        background-color: gainsboro;
+    > .logo-desc {
+        padding: 1rem;
+
+        align-content: center;
+        justify-items: center;
+
+        > .logo {
+            width: fit-content;
+            font-family: 'Playwrite NG Modern';
+            font-weight: 700;
+            display: flex;
+            flex-direction: column;
+            line-height: 8rem;
+            font-size: 10rem;
+            color: var(--text-200);
+        }
+
+        > .desc {
+            width: 20rem;
+            font-size: 1.25rem;
+            margin-top: 1rem;
+            color: var(--text-400);
+        }
     }
 }
 
@@ -28,21 +49,35 @@
     }
 }
 
+.block-header {
+    margin-top: 1rem;
+    text-align: center;
+    color: var(--text-200);
+}
+
 .short-history {
-    > h2 {
-        margin-top: 1rem;
-        text-align: center;
-    }
+    border: 4px dashed var(--primary-300);
+    border-radius: 1em;
+    background-color: var(--secondary-700);
+    max-height: 500px;
 
     .short-history-list {
         height: 80%;
         display: grid;
         gap: 1rem;
-        padding: 1rem;
+        padding: 0.5rem;
+        margin: 0.5rem;
         grid-template-rows: repeat(auto-fit, 1fr);
+        align-items: center;
+        border: 2px dotted var(--accent-500);
+        border-radius: 0.5em;
+        overflow-y: scroll;
+        scroll-behavior: smooth;
+        scroll-snap-type: y mandatory;
 
-        > * {
-            background-color: gray;
+        > .history-card {
+            scroll-snap-align: start;
+            background-color: var(--secondary-800);
             padding: 1rem;
         }
     }
@@ -50,31 +85,49 @@
 
 .recipes-examples {
     display: flex;
-    justify-content: space-around;
+    overflow-x: scroll;
+    scrollbar-width: none;
+    scroll-snap-type: x mandatory;
+    min-height: 210px;
+    gap: 2em;
     
-    > p {
-        background-color: gainsboro;
-        width: 200px;
+    > .image-wrapper {
+        scroll-snap-align: start;
+        flex: 0 0 200px;
+        min-width: 200px;
         height: 200px;
+
+        border-radius: 1rem;
+        overflow: hidden;
+        border: 3px dashed var(--text-400);
+
+        > img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
     }
 }
 
 .changelog {
-    background-color: gainsboro;
-
-    > h3 {
-        margin-top: 1rem;
-        text-align: center;
-    }
+    background-color: var(--secondary-700);
+    border-radius: 2em 2em 0 0;
+    border: 4px dashed var(--primary-300);
+    border-bottom: 0;
 }
 
 .changelog-list {
     display: grid;
-    gap: 1rem;
+    gap: 0.5rem;
     padding: 1rem;
 
-    > * {
-        background-color: gray;
+    > p {
+        margin: 0;
+        background-color: var(--secondary-800);
         padding: 1rem;
+
+        &:nth-child(1) {
+            background-color: var(--secondary-900);
+        }
     }
 }
