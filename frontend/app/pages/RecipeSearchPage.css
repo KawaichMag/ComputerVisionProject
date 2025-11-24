@@ -1,0 +1,119 @@
+.recipesearchpage {
+    display: grid;
+    width: 95%;
+    height: 100%;
+    justify-self: center;
+    grid-template-areas: "photo photo detected"
+    "photo photo detected"
+    "chart chart chart";
+    grid-template-columns: auto auto 1fr;
+    grid-template-rows: auto 1fr 1fr;
+    gap: 2em;
+
+    > * {
+        border: 4px dashed var(--primary-300);
+        background-color: var(--secondary-700);
+        border: 4px dashed var(--primary-300);
+    }
+}
+
+.photo-load {
+    grid-area: photo;
+    border-radius: 2em;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    font-weight: 600;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+
+    color: var(--text-300);
+    text-align: center;
+}
+
+.detected-conteiner {
+    grid-area: detected;
+    border-radius: 2em;
+}
+
+.current-chart {
+    grid-area: chart;
+    border-radius: 2em 2em 0 0;
+    border-bottom: 0;
+}
+
+.detected-conteiner {
+    font-weight: 600;
+    border: 4px dashed var(--primary-300);
+    border-radius: 1em;
+    background-color: var(--secondary-700);
+    .detected-conteiner-list {
+        height: 70%;
+        display: grid;
+        gap: 1rem;
+        padding: 0.5rem;
+        margin: 0.5rem;
+        grid-template-rows: repeat(auto-fit, 1fr);
+        align-items: center;
+        border: 2px dotted var(--accent-500);
+        border-radius: 0.5em;
+        overflow-y: scroll;
+        scroll-behavior: smooth;
+        scroll-snap-type: y mandatory;
+
+        > .predict-card {
+            scroll-snap-align: start;
+            background-color: var(--secondary-800);
+            padding: 1rem;
+        }
+    }
+}
+
+.photo-load-header {
+    font-family: 'Playwrite NG Modern';
+    font-size: 1.5em;
+}
+
+.detected-container-header {
+    font-family: 'Playwrite NG Modern';
+    font-size: 1.2em;
+    padding: 0.5em;
+    display: flex;
+    gap: 1em;
+    justify-content: space-evenly;
+
+    > span {
+        background-color: var(--secondary-900);
+        border-radius: 1em;
+        padding: 1em;
+    }
+}
+
+.current-chart-header {
+    font-family: 'Playwrite NG Modern';
+    font-size: 2em;
+    padding: 0.5em;
+    display: flex;
+    gap: 1em;
+    justify-content: space-evenly;
+    font-weight: 700;
+}
+
+.current-chart-list {
+    display: grid;
+    gap: 1rem;
+    padding: 0.5rem;
+    margin: 0.5rem;
+    grid-template-rows: repeat(auto-fit, 1fr);
+    align-items: center;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+
+    > .predict-card {
+        scroll-snap-align: start;
+        background-color: var(--secondary-800);
+        padding: 1rem;
+    }
+}
