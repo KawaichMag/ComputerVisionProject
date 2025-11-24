@@ -53,6 +53,27 @@ async def predict_image(file: UploadFile = File(...)):
     return {"predictions": products_list}
 
 
+@app.post("/predict_with_number")
+async def predict_with_number(file: UploadFile = File(...)):
+    contents = await file.read()
+    image = Image.open(io.BytesIO(contents))
+    prompt = """<image>
+Count food items. Output exactly:
+item_name: count(number)
+One per line. Only food. No plates."""
+    
+    result = app.state.model.query(image, prompt)
+    answer = result["answer"]
+    
+    predictions = {}
+    for line in answer.strip().split("\n"):
+        if ":" in line:
+            key, value = line.split(":", 1)
+            predictions[key.strip()] = value.strip()
+            
+    return {"predictions": predictions}
+
+
 @app.get("/health")
 async def health_check():
     return {"status": "healthy", "model_loaded": "moondream2"}
