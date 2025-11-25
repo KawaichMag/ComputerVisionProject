@@ -1,4 +1,3 @@
-import base64
 import io
 import json
 import logging
@@ -112,11 +111,8 @@ async def predict_image_segment(file: UploadFile = File(...)):
         mask_image = Image.fromarray(mask)
         buffered = io.BytesIO()
         mask_image.save(buffered, format="PNG")
-        mask_base64 = base64.b64encode(buffered.getvalue()).decode("utf-8")
 
-        result.append(
-            {"class_name": id2label.get(label, f"class_{label}"), "mask": mask_base64}
-        )
+        result.append(id2label.get(label, f"class_{label}"))
 
     return JSONResponse(content={"predictions": result})
 
