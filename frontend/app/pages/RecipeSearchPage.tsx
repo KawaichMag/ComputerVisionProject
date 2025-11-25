@@ -2,6 +2,7 @@ import React, { useCallback, useMemo, useState } from 'react'
 import './RecipeSearchPage.css'
 import { useDropzone } from 'react-dropzone'
 import PredictionCard from '~/components/PredictionCard';
+import { useCart } from '~/contexts/CartContext';
 
 const baseStyle = {
     width: '400px',
@@ -34,6 +35,8 @@ const baseStyle = {
 
 export default function RecipeSearchPage() {
   const [image, setImage] = useState<string | null>(null);
+  const {cart, setCart} = useCart();
+  const [predict, setPredict] = useState<string[] | null>(null);
 
   const onDrop = useCallback((acceptedFiles: any) => {
     acceptedFiles.forEach((file: any) => {
@@ -45,9 +48,24 @@ export default function RecipeSearchPage() {
         const binaryStr = reader.result
         console.log(binaryStr)
         if (binaryStr) {
-          const blob = new Blob([binaryStr], { type: 'image/jpeg' }); // Adjust MIME type if necessary
+          const blob = new Blob([binaryStr], { type: 'image/jpeg' });
           const blobUrl = URL.createObjectURL(blob);
           setImage(blobUrl)
+          const formData = new FormData();
+          formData.append("file", blob);
+
+          const response = fetch("/api/predict", {
+            method: "POST",
+            headers: { 'Content-Type': 'image/jpeg' },
+            body: formData
+          }).then((res) => res.json())
+            .then((data) => {                  
+              console.log(data);
+            })
+            .catch((err) => {
+              console.error(err);
+            });
+
         }
       }
       reader.readAsArrayBuffer(file)
@@ -98,10 +116,17 @@ export default function RecipeSearchPage() {
           <span>Amount</span><span>Name</span><span>Weight</span><span>Calories</span>
         </span>
         <div className="detected-conteiner-list">
-          <PredictionCard name="broccoli" amount={1} weight={300} cal={105}/>
+          {
+            predict ?
+            predict.map((item, index) => {
+              return <PredictionCard key={index} name={item} amount={1} weight={NaN} cal={NaN}/>
+            }) :
+            <></>
+          }
+          {/* <PredictionCard name="broccoli" amount={1} weight={300} cal={105}/>
           <PredictionCard name="eggs" amount={2} weight={100} cal={140}/>
           <PredictionCard name="carrot" amount={1} weight={90} cal={37}/>
-          <PredictionCard name="tomato" amount={1} weight={120} cal={22}/>
+          <PredictionCard name="tomato" amount={1} weight={120} cal={22}/> */}
         </div>
       </div>
       <div className="current-chart">
@@ -109,7 +134,13 @@ export default function RecipeSearchPage() {
             Current Chart
           </span>
           <div className="current-chart-list">
-            <PredictionCard name="cucumbers" amount={2} weight={80} cal={15}/>
+            {
+              cart.map((item, index) => {
+                return <PredictionCard key={index} name={item.name} amount={item.amount} weight={item.weight} cal={item.cal}/>
+              })
+            }
+
+            {/* <PredictionCard name="cucumbers" amount={2} weight={80} cal={15}/>
             <PredictionCard name="tomatoes" amount={3} weight={210} cal={65}/>
             <PredictionCard name="onions" amount={1} weight={120} cal={45}/>
             <PredictionCard name="potatoes" amount={4} weight={600} cal={520}/>
@@ -128,7 +159,7 @@ export default function RecipeSearchPage() {
             <PredictionCard name="black beans" amount={1} weight={240} cal={315}/>
             <PredictionCard name="butter" amount={1} weight={50} cal={360}/>
             <PredictionCard name="yogurt" amount={1} weight={200} cal={125}/>
-            <PredictionCard name="apple" amount={2} weight={300} cal={190}/>
+            <PredictionCard name="apple" amount={2} weight={300} cal={190}/> */}
           </div>
       </div>
   </div>
